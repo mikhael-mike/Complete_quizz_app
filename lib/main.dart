@@ -16,8 +16,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
    var _questionIndex = 0;
+   var _totalScore = 0;
 
-  void answerQuotion() {
+  void _answerQuotion(int score) {
+    _totalScore = _totalScore + score;
     setState(() {
       _questionIndex = _questionIndex + 1;
       print('Answer clicked');
@@ -38,15 +40,15 @@ class _MyAppState extends State<MyApp> {
     },
     {
       'questionText': 'What your favorite animal?',
-      'answer': ['Rabbit', 'Snake', 'Elephant', 'Lion']
+      'answer': [{'text': 'Rabbit', 'score': 3}, {'text': 'Snake', 'score': 11}, {'text': 'Elephant', 'score': 5}, {'text': 'Lion', 'score': 9}]
     },
     {
       'questionText': 'What your favorite animal?',
-      'answer': ['Rabbit', 'Snake', 'Elephant', 'Lion']
+      'answer': [{'text': 'Rabbit', 'score': 2}, {'text': 'Snake', 'score': 7}, {'text': 'Elephant', 'score': 6}, {'text': 'Lion', 'score': 3}]
     },
     {
       'questionText': 'What your favorite instructor?',
-      'answer': ['Max', 'Max', 'Max', 'Max']
+      'answer': [{'text': 'Max', 'score': 1}, {'text': 'Max', 'score': 1}, {'text': 'Max', 'score': 1}, {'text': 'Max', 'score': 1}]
     },
     ];
 
@@ -58,7 +60,7 @@ class _MyAppState extends State<MyApp> {
           title: Text('Helloo'),
         ),
         body: _questionIndex < _questions.length 
-        ? Quiz(answerQuestion: answerQuotion, questionIndex: _questionIndex, questions:  _questions,)
+        ? Quiz(answerQuestion: _answerQuotion, questionIndex: _questionIndex, questions:  _questions,)
         : Result(),
       ),
     );
