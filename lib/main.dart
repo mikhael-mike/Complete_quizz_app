@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_full_app/answer.dart';
-import 'question.dart';
+import 'package:quiz_full_app/result.dart';
+// import 'package:quiz_full_app/answer.dart';
+// import 'question.dart';
+import 'quiz.dart';
 
 
 void main() => runApp(MyApp());
@@ -20,11 +22,16 @@ class _MyAppState extends State<MyApp> {
       _questionIndex = _questionIndex + 1;
       print('Answer clicked');
       print(_questionIndex);
+      if(_questionIndex < _questions.length){
+        print('We have more questions!');
+      } else {
+        print('No more questions');
+      }
     });
      
     }
 
-  var questions = [
+  final _questions = const [
     {
       'questionText': 'What your favorite color?',
       'answer': ['Black', 'Red', 'Green', 'White']
@@ -50,16 +57,9 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Helloo'),
         ),
-        body: Column(
-          children: <Widget>[
-            Question(
-              questions[_questionIndex]['questionText'] as String,
-              ),
-            ...(questions[_questionIndex]['answer'] as List<String>).map((answer)  {
-              return Answer(answerQuotion, answer);
-            }).toList()
-          ],
-        ),
+        body: _questionIndex < _questions.length 
+        ? Quiz(answerQuestion: answerQuotion, questionIndex: _questionIndex, questions:  _questions,)
+        : Result(),
       ),
     );
   }
